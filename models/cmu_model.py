@@ -195,7 +195,7 @@ class CmuModel(tf.keras.Model):
         stage1_out = self.stage1_concat([s_1, l_1, vgg])
 
         if self.masked_outputs and inputs_with_masks:
-            output_1_s = self.masked_1_s([s_1,in puts[1]])
+            output_1_s = self.masked_1_s([s_1, inputs[1]])
             output_1_l = self.masked_1_l([l_1, inputs[2]])
 
         # stage 2
