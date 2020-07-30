@@ -25,24 +25,23 @@ class JointsLoader:
 
     num_joints_and_bkg = num_joints + 1
 
-    num_connections = 22
+    num_connections = 28
 
-    idx_in_coco = [0, lambda x: JointsLoader._get_neck(x, 5, 6), 6, 8,
-                   10, 5, 7, 9, 12, 14, 16, 11, 13, 15, 2, 1, 4, 3]
+    idx_in_coco = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
-    idx_in_coco_str = [
-        'Nose','Neck','RShoulder','RElbow','RWrist','LShoulder','LElbow','LWrist',
-        'RHip','RKnee','RAnkle','LHip','LKnee','LAnkle','REye','LEye','REar','LEar']
+    idx_in_coco_str = ["right_sholder_outer_point","right_sholder_inner_point","left_sholder_inner_point","left_sholder_outer_point"
+                      ,"right_chest_point","left_chest_point","right_waist_point","left_waist_point","right_natural_waist_point"
+                      ,"left_natural_waist_point","right_hip_point","left_hip_point","pants_crotch","right_thigh","left_thigh",
+                      "right_Knee_point","left_Knee_point","right_ankle_point","left_ankle_point","head_point","foot_color"]
 
     joint_pairs = list(zip(
-        [1, 8, 9, 1, 11, 12, 1, 2, 3, 2, 1, 5, 6, 5, 1, 0, 0, 14, 15],
-        [8, 9, 10, 11, 12, 13, 2, 3, 4, 16, 5, 6, 7, 17, 0, 14, 15, 16, 17]))
+        [12,12,12,16,15,13,12,13,14,10,8,6,4,10,11,8,9,6,7,4,5,0,3,0,2,1,19,19],
+        [16,15,20,18,17,12,14,15,16,11,9,7,5,13,14,10,11,8,9,6,7,4,5,1,3,19,2,12]))
 
     @staticmethod
     def from_coco_keypoints(all_keypoints, w ,h):
         """
         Creates list of joints based on the list of coco keypoints vectors.
-
         :param all_keypoints: list of coco keypoints vector [[x1,y1,v1,x2,y2,v2,....], []]
         :param w: image width
         :param h: image height
@@ -135,7 +134,6 @@ class CocoDataFlow(RNGDataFlow):
     def __init__(self, target_size, annot_path, img_dir, select_ids=None):
         """
         Initializes dataflow.
-
         :param target_size:
         :param annot_path: path to the coco annotation file
         :param img_dir: directory containing images
@@ -258,7 +256,6 @@ class CocoDataFlow(RNGDataFlow):
     def get_data(self):
         """
         Generator of data points
-
         :return: instance of Meta
         """
         idxs = np.arange(self.size())
