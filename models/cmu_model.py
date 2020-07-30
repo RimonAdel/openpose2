@@ -21,6 +21,7 @@ class CmuModel(tf.keras.Model):
 
         self.img_norm = tf.keras.layers.Lambda(lambda x: x / 256 - 0.5)
         keypoints_num = 22
+        connections_num = 28
         # vgg layers
 
         self.conv1 = conv2d(64, 3, 'conv1_1')
@@ -45,7 +46,7 @@ class CmuModel(tf.keras.Model):
         self.stage1_conv2_s = conv2d(128, 3, "conv_stage1_2")
         self.stage1_conv3_s = conv2d(128, 3, "conv_stage1_3")
         self.stage1_conv4_s = conv2d(512, 1, "conv_stage1_4")
-        self.stage1_conv5_s = conv2d(keypoints_num*2, 1, "conv_stage1_5", activation=None)
+        self.stage1_conv5_s = conv2d(connections_num*2, 1, "conv_stage1_5", activation=None)
         self.stage1_conv1_l = conv2d(128, 3, "conv_stage1_6")
         self.stage1_conv2_l = conv2d(128, 3, "conv_stage1_7")
         self.stage1_conv3_l = conv2d(128, 3, "conv_stage1_8")
@@ -61,7 +62,7 @@ class CmuModel(tf.keras.Model):
         self.stage2_conv4_s = conv2d(128, 7, "conv_stage2_4")
         self.stage2_conv5_s = conv2d(128, 7, "conv_stage2_5")
         self.stage2_conv6_s = conv2d(128, 1, "conv_stage2_6")
-        self.stage2_conv7_s = conv2d(keypoints_num*2, 1, "conv_stage2_7", activation=None)
+        self.stage2_conv7_s = conv2d(connections_num*2, 1, "conv_stage2_7", activation=None)
         self.stage2_conv1_l = conv2d(128, 7, "conv_stage2_8")
         self.stage2_conv2_l = conv2d(128, 7, "conv_stage2_9")
         self.stage2_conv3_l = conv2d(128, 7, "conv_stage2_10")
@@ -79,7 +80,7 @@ class CmuModel(tf.keras.Model):
         self.stage3_conv4_s = conv2d(128, 7, "conv_stage3_4")
         self.stage3_conv5_s = conv2d(128, 7, "conv_stage3_5")
         self.stage3_conv6_s = conv2d(128, 1, "conv_stage3_6")
-        self.stage3_conv7_s = conv2d(keypoints_num*2, 1, "conv_stage3_7", activation=None)
+        self.stage3_conv7_s = conv2d(connections_num*2, 1, "conv_stage3_7", activation=None)
         self.stage3_conv1_l = conv2d(128, 7, "conv_stage3_8")
         self.stage3_conv2_l = conv2d(128, 7, "conv_stage3_9")
         self.stage3_conv3_l = conv2d(128, 7, "conv_stage3_10")
@@ -97,7 +98,7 @@ class CmuModel(tf.keras.Model):
         self.stage4_conv4_s = conv2d(128, 7, "conv_stage4_4")
         self.stage4_conv5_s = conv2d(128, 7, "conv_stage4_5")
         self.stage4_conv6_s = conv2d(128, 1, "conv_stage4_6")
-        self.stage4_conv7_s = conv2d(keypoints_num*2, 1, "conv_stage4_7", activation=None)
+        self.stage4_conv7_s = conv2d(connections_num*2, 1, "conv_stage4_7", activation=None)
         self.stage4_conv1_l = conv2d(128, 7, "conv_stage4_8")
         self.stage4_conv2_l = conv2d(128, 7, "conv_stage4_9")
         self.stage4_conv3_l = conv2d(128, 7, "conv_stage4_10")
@@ -115,7 +116,7 @@ class CmuModel(tf.keras.Model):
         self.stage5_conv4_s = conv2d(128, 7, "conv_stage5_4")
         self.stage5_conv5_s = conv2d(128, 7, "conv_stage5_5")
         self.stage5_conv6_s = conv2d(128, 1, "conv_stage5_6")
-        self.stage5_conv7_s = conv2d(keypoints_num*2, 1, "conv_stage5_7", activation=None)
+        self.stage5_conv7_s = conv2d(connections_num*2, 1, "conv_stage5_7", activation=None)
         self.stage5_conv1_l = conv2d(128, 7, "conv_stage5_8")
         self.stage5_conv2_l = conv2d(128, 7, "conv_stage5_9")
         self.stage5_conv3_l = conv2d(128, 7, "conv_stage5_10")
@@ -133,7 +134,7 @@ class CmuModel(tf.keras.Model):
         self.stage6_conv4_s = conv2d(128, 7, "conv_stage6_4")
         self.stage6_conv5_s = conv2d(128, 7, "conv_stage6_5")
         self.stage6_conv6_s = conv2d(128, 1, "conv_stage6_6")
-        self.stage6_conv7_s = conv2d(keypoints_num*2, 1, "conv_stage6_7", activation=None)
+        self.stage6_conv7_s = conv2d(connections_num*2, 1, "conv_stage6_7", activation=None)
         self.stage6_conv1_l = conv2d(128, 7, "conv_stage6_8")
         self.stage6_conv2_l = conv2d(128, 7, "conv_stage6_9")
         self.stage6_conv3_l = conv2d(128, 7, "conv_stage6_10")
@@ -195,8 +196,9 @@ class CmuModel(tf.keras.Model):
         stage1_out = self.stage1_concat([s_1, l_1, vgg])
 
         if self.masked_outputs and inputs_with_masks:
-            output_1_s = self.masked_1_s([s_1, inputs[1]])
-            output_1_l = self.masked_1_l([l_1, inputs[2]])
+          print("s_1, inputs[1] = ",s_1, inputs)
+          output_1_s = self.masked_1_s([s_1, inputs[1]])
+          output_1_l = self.masked_1_l([l_1, inputs[2]])
 
         # stage 2
 
