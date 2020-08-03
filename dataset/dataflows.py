@@ -12,7 +12,9 @@ from dataset.dataflow_steps import create_all_mask, augment, read_img, apply_mas
 from dataset.label_maps import create_heatmap, create_paf
 
 keypoints_num = 22
+connections_num = 28
 body_parts_num = 21
+
 def build_sample(components, y_size):
     """
     Builds a sample for a model.
@@ -46,10 +48,10 @@ def build_sample_with_masks(components, y_size):
     aug_joints = components[13]
 
     if mask is None:
-        mask_paf = np.repeat(np.ones((y_size, y_size, 1), dtype=np.uint8), keypoints_num*2, axis=2)
+        mask_paf = np.repeat(np.ones((y_size, y_size, 1), dtype=np.uint8), connections_num*2, axis=2)
         mask_heatmap = np.repeat(np.ones((y_size, y_size, 1), dtype=np.uint8), keypoints_num, axis=2)
     else:
-        mask_paf = create_all_mask(mask, keypoints_num*2, stride=8)
+        mask_paf = create_all_mask(mask, connections_num*2, stride=8)
         mask_heatmap = create_all_mask(mask, keypoints_num, stride=8)
 
     heatmap = create_heatmap(JointsLoader.num_joints_and_bkg, y_size, y_size,
@@ -77,7 +79,7 @@ def get_dataflow_vgg(annot_path, img_dir, strict, x_size, y_size, include_output
     coco_crop_size = 368
 
     # configure augmentors
-
+  
     augmentors = [
         ScaleAug(scale_min=0.5,
                  scale_max=1.1,
