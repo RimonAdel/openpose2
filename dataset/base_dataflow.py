@@ -277,3 +277,5 @@ class CocoDataFlow(RNGDataFlow):
                 obj.mask,
                 obj.aug_center,
                 obj.aug_joints]
+
+            
