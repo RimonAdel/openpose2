@@ -3,7 +3,7 @@ import tensorflow as tf
 from dataset.dataflows import get_dataflow_vgg, get_dataflow_mobilenet
 
 
-def get_dataset_vgg(annot_path, img_dir, batch_size, strict=False, keypoints_num = 19):
+def get_dataset_vgg(annot_path, img_dir, batch_size, strict=False, keypoints_num = 21, connections_num = 28):
     def gen(df):
         def f():
             for i in df:
@@ -23,7 +23,7 @@ def get_dataset_vgg(annot_path, img_dir, batch_size, strict=False, keypoints_num
         gen(df), (tf.float32, tf.float32, tf.float32),
         output_shapes=(
             tf.TensorShape([368, 368, 3]),
-            tf.TensorShape([46, 46, keypoints_num*2]),
+            tf.TensorShape([46, 46, connections_num*2]),
             tf.TensorShape([46, 46, keypoints_num])
             )
     )
@@ -33,7 +33,7 @@ def get_dataset_vgg(annot_path, img_dir, batch_size, strict=False, keypoints_num
     return ds, size
 
 
-def get_dataset_vgg_with_masks(annot_path, img_dir, batch_size, strict=False, keypoints_num = 19):
+def get_dataset_vgg_with_masks(annot_path, img_dir, batch_size, strict=False, keypoints_num = 21, connections_num = 28):
     def gen(df):
         def f():
             for i in df:
@@ -54,9 +54,9 @@ def get_dataset_vgg_with_masks(annot_path, img_dir, batch_size, strict=False, ke
         gen(df), (tf.float32, tf.float32, tf.float32, tf.float32, tf.float32),
         output_shapes=(
             tf.TensorShape([368, 368, 3]),
-            tf.TensorShape([46, 46, keypoints_num*2]),
+            tf.TensorShape([46, 46, connections_num*2]),
             tf.TensorShape([46, 46, keypoints_num]),
-            tf.TensorShape([46, 46, keypoints_num*2]),
+            tf.TensorShape([46, 46, connections_num*2]),
             tf.TensorShape([46, 46, keypoints_num])
             )
     )
@@ -67,7 +67,7 @@ def get_dataset_vgg_with_masks(annot_path, img_dir, batch_size, strict=False, ke
     return ds, size
 
 
-def get_dataset_mobilenet(annot_path, img_dir, batch_size, strict = False, keypoints_num = 19):
+def get_dataset_mobilenet(annot_path, img_dir, batch_size, strict = False, keypoints_num = 21, connections_num = 28):
     def gen(df):
         def f():
             for i in df:
@@ -87,7 +87,7 @@ def get_dataset_mobilenet(annot_path, img_dir, batch_size, strict = False, keypo
         gen(df), (tf.float32, tf.float32, tf.float32),
         output_shapes=(
             tf.TensorShape([224, 224, 3]),
-            tf.TensorShape([28, 28, keypoints_num*2]),
+            tf.TensorShape([28, 28, connections_num*2]),
             tf.TensorShape([28, 28, keypoints_num])
             )
     )
