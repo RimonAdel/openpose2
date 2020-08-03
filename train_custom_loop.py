@@ -20,7 +20,10 @@ decay_rate = 0.333
 decay_steps = 136106 / batch_size  # basically it means that dacay will be triggered every 3 epochs
 base_lr = 4e-5
 max_epochs = 100
+
 keypoints_num = 22
+connectios_num = 28
+
 from_vgg = {
     'conv1_1': 'block1_conv1',
     'conv1_2': 'block1_conv2',
@@ -80,7 +83,7 @@ def probe_model(model, test_img_path="sample_images/ski_smaller.jpg"):
     input_img = np.transpose(np.float32(img[:, :, :, np.newaxis]), (3, 0, 1, 2))
 
     mask_heatmap_output = np.ones((1, 46, 46, keypoints_num), np.float32)
-    mask_paf_output = np.ones((1, 46, 46, keypoints_num*2), np.float32)
+    mask_paf_output = np.ones((1, 46, 46, connectios_num*2), np.float32)
 
     output_blobs = model.predict([input_img, mask_paf_output, mask_heatmap_output])
 
@@ -298,14 +301,14 @@ if __name__ == '__main__':
     ds_val, ds_val_size = get_dataset_vgg_with_masks(annot_path_val, img_dir_val, batch_size, strict=True, keypoints_num=keypoints_num)
 
     print(f"Training samples: {ds_train_size} , Validation samples: {ds_val_size}")
-
     print("steps_per_epoch",ds_train_size // batch_size)
+    
     steps_per_epoch = ds_train_size // batch_size
     steps_per_epoch_val = ds_val_size // batch_size
 
     model = CmuModel(masked_outputs=True)
     model.build(input_shape=[tf.TensorShape([None, 368, 368, 3]),
-            tf.TensorShape([None, 46, 46, keypoints_num*2]),
+            tf.TensorShape([None, 46, 46, connectios_num*2]),
             tf.TensorShape([None, 46, 46, keypoints_num])])
 
     lr_multipliers = get_lr_multipliers(model)
