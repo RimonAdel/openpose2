@@ -115,8 +115,8 @@ class FlipTransform(Transform):
         :return:
         """
         if self.doit:
-            right = [2, 3, 4, 8, 9, 10, 14, 16]
-            left = [5, 6, 7, 11, 12, 13, 15, 17]
+            right = [0, 1, 4, 6, 8, 10, 13, 15, 17]
+            left = [3, 2, 5, 7, 9, 11, 14, 16, 18]
 
             for l_idx, r_idx in zip(left, right):
                 idxs = range(0, coords.shape[0], self.num_parts)
