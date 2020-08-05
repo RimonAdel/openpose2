@@ -3,7 +3,7 @@ import tensorflow as tf
 from dataset.dataflows import get_dataflow_vgg, get_dataflow_mobilenet
 
 
-def get_dataset_vgg(annot_path, img_dir, batch_size, strict=False, keypoints_num = 21, connections_num = 28):
+def get_dataset_vgg(annot_path, img_dir, batch_size, strict=False, keypoints_num = 22, connections_num = 19):
     def gen(df):
         def f():
             for i in df:
@@ -33,7 +33,7 @@ def get_dataset_vgg(annot_path, img_dir, batch_size, strict=False, keypoints_num
     return ds, size
 
 
-def get_dataset_vgg_with_masks(annot_path, img_dir, batch_size, strict=False, keypoints_num = 21, connections_num = 28):
+def get_dataset_vgg_with_masks(annot_path, img_dir, batch_size, strict=False, keypoints_num = 22, connections_num = 19):
     def gen(df):
         def f():
             for i in df:
@@ -67,7 +67,7 @@ def get_dataset_vgg_with_masks(annot_path, img_dir, batch_size, strict=False, ke
     return ds, size
 
 
-def get_dataset_mobilenet(annot_path, img_dir, batch_size, strict = False, keypoints_num = 21, connections_num = 28):
+def get_dataset_mobilenet(annot_path, img_dir, batch_size, strict = False, keypoints_num = 22, connections_num = 19):
     def gen(df):
         def f():
             for i in df:
