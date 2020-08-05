@@ -22,7 +22,7 @@ base_lr = 4e-5
 max_epochs = 100
 
 keypoints_num = 22
-connectios_num = 28
+connectios_num = 19
 
 from_vgg = {
     'conv1_1': 'block1_conv1',
