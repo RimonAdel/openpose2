@@ -12,7 +12,7 @@ from dataset.dataflow_steps import create_all_mask, augment, read_img, apply_mas
 from dataset.label_maps import create_heatmap, create_paf
 
 keypoints_num = 22
-connections_num = 28
+connections_num = 19
 body_parts_num = 21
 
 def build_sample(components, y_size):
