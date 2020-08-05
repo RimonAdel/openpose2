@@ -25,7 +25,7 @@ class JointsLoader:
 
     num_joints_and_bkg = num_joints + 1
 
-    num_connections = 28
+    num_connections = 19
 
     idx_in_coco = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
@@ -35,8 +35,8 @@ class JointsLoader:
                       "right_Knee_point","left_Knee_point","right_ankle_point","left_ankle_point","head_point","foot_color"]
 
     joint_pairs = list(zip(
-        [12,12,12,16,15,13,12,13,14,10,8,6,4,10,11,8,9,6,7,4,5,0,3,0,2,1,19,19],
-        [16,15,20,18,17,12,14,15,16,11,9,7,5,13,14,10,11,8,9,6,7,4,5,1,3,19,2,12]))
+        [0,1,2,0,4,6,8,10,13,15,3,5,7,9,11,14,16,1,18],
+        [1,2,3,4,6,8,10,13,15,17,5,7,9,11,14,16,18,19,20]))
 
     @staticmethod
     def from_coco_keypoints(all_keypoints, w ,h):
