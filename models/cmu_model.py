@@ -21,7 +21,7 @@ class CmuModel(tf.keras.Model):
 
         self.img_norm = tf.keras.layers.Lambda(lambda x: x / 256 - 0.5)
         keypoints_num = 22
-        connections_num = 28
+        connections_num = 19
         # vgg layers
 
         self.conv1 = conv2d(64, 3, 'conv1_1')
