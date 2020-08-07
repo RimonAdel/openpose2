@@ -3,6 +3,9 @@ import tensorflow as tf
 from models.mobilenet_v2 import MobileNetV2, inverted_res_block
 from tensorflow.keras import layers
 
+keypoints_num = 22
+connections_num = 19*2
+body_parts_num = 21
 
 def get_mobilenet_model(alpha, rows):
     """
@@ -42,7 +45,7 @@ def get_mobilenet_model(alpha, rows):
                            expansion=6, block_id=102, kernel_size=3)
     x = inverted_res_block(x, filters=512, alpha=alpha, stride=1,
                            expansion=6, block_id=103, kernel_size=1)
-    l_1 = layers.Conv2D(19,
+    l_1 = layers.Conv2D(keypoints_num,
                         kernel_size=1,
                         use_bias=False,
                         activation=None,
@@ -58,7 +61,7 @@ def get_mobilenet_model(alpha, rows):
                            expansion=6, block_id=106, kernel_size=3)
     x = inverted_res_block(x, filters=512, alpha=alpha, stride=1,
                            expansion=6, block_id=107, kernel_size=1)
-    s_1 = layers.Conv2D(38,
+    s_1 = layers.Conv2D(connections_num,
                         kernel_size=1,
                         use_bias=False,
                         activation=None,
@@ -80,7 +83,7 @@ def get_mobilenet_model(alpha, rows):
                            expansion=6, block_id=204, kernel_size=7)
     x = inverted_res_block(x, filters=128, alpha=alpha, stride=1,
                            expansion=6, block_id=205, kernel_size=1)
-    l_2 = layers.Conv2D(19,
+    l_2 = layers.Conv2D(keypoints_num,
                         kernel_size=1,
                         use_bias=False,
                         activation=None,
@@ -100,7 +103,7 @@ def get_mobilenet_model(alpha, rows):
                            expansion=6, block_id=210, kernel_size=7)
     x = inverted_res_block(x, filters=128, alpha=alpha, stride=1,
                            expansion=6, block_id=211, kernel_size=1)
-    s_2 = layers.Conv2D(38,
+    s_2 = layers.Conv2D(connections_num,
                         kernel_size=1,
                         use_bias=False,
                         activation=None,
